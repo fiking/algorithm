@@ -8,7 +8,7 @@ class Solution {
 public:
     int minimumLines(vector<vector<int>>& stockPrices) {
         sort(stockPrices.begin(), stockPrices.end(), [&](auto &a, auto &b) {
-            return a[0] < a[1];
+            return a[0] < b[0];
         });
 
         int ans = 1;
@@ -22,18 +22,6 @@ public:
                 }
             }
 
-        }
-
-        vector<float> frest(stockPrices.size(), 0.0);
-        for (int i = 1; i < stockPrices.size(); ++i) {
-            rest[i][0]  = stockPrices[i][0] - stockPrices[i - 1][0];
-            rest[i][1]  = stockPrices[i][1] - stockPrices[i - 1][1];
-            frest[i] = (float)(rest[i][0]) / rest[i][1];
-            if (i > 2) {
-                if (frest[i] - frest[i - 1] < 0.00001) {
-                    ++ans;
-                }
-            }
         }
         return ans;
     }
